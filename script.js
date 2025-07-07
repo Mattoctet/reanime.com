@@ -79,6 +79,7 @@ function loop(timestamp) {
     }
   } else if (phase === "insufflations") {
     insufflationTimer += elapsed;
+    lastTime = timestamp;
 
     if (insufflationTimer >= 4000 && insufflations < 1) {
       insufflations = 1;
@@ -90,35 +91,25 @@ function loop(timestamp) {
       hidePopup();
       cycles++;
       compressions = 0;
-      insufflations = 0; // remise à zéro pour le prochain cycle
+      insufflations = 0;
       phase = "compressions";
       updateDisplay();
-      lastTime = timestamp;
-      return; // On retourne ici pour éviter d'accumuler elapsed trop vite
     }
-
-    lastTime = timestamp;
-  }
-  else {
-    lastTime = timestamp;
   }
 
   requestAnimationFrame(loop);
 }
 
-// Gestion sélection victime
 select.onchange = () => {
   type = select.value;
   reset();
 };
 
-// Bouton stop
 stopBtn.onclick = () => {
   running = false;
   hidePopup();
 };
 
-// Bouton défibrillateur (pause 5s)
 defibBtn.onclick = () => {
   defibPause = true;
   setTimeout(() => {
@@ -128,7 +119,6 @@ defibBtn.onclick = () => {
   }, 5000);
 };
 
-// Bouton je suis formé
 document.getElementById("formee").onclick = () => {
   formé = true;
   alert("Le mode assisté est désactivé.");
