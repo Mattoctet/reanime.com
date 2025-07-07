@@ -1,4 +1,4 @@
-// script.js - version précise avec requestAnimationFrame
+// script.js - version précise avec requestAnimationFrame et insufflations ralenties
 
 let type = "adulte";
 let compressions = 0;
@@ -77,18 +77,22 @@ function loop(timestamp) {
         phase = "insufflations";
         insufflations = 0;
         showPopup();
-        // lancement du timer d'insufflations (2 secondes)
         insufflationTimer = 0;
       }
     }
   } else if (phase === "insufflations") {
-    // Durée totale insufflations = 2s
     insufflationTimer += elapsed;
-    if (insufflationTimer >= 2000) {
+
+    if (insufflationTimer >= 4000 && insufflations < 1) {
+      insufflations = 1;
+      updateDisplay();
+    }
+    if (insufflationTimer >= 8000) {
+      insufflations = 2;
+      updateDisplay();
       hidePopup();
       cycles++;
       compressions = 0;
-      insufflations = 2;
       phase = "compressions";
       updateDisplay();
       lastTime = timestamp;
@@ -124,7 +128,6 @@ defibBtn.onclick = () => {
 document.getElementById("formee").onclick = () => {
   formé = true;
   alert("Le mode assisté est désactivé.");
-  // Ici tu peux aussi cacher les popup ou bips si tu veux
 };
 
 reset(); // démarrage initial
