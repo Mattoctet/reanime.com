@@ -1,5 +1,3 @@
-// script.js - version précise avec requestAnimationFrame et insufflations ralenties
-
 let type = "adulte";
 let compressions = 0;
 let insufflations = 0;
@@ -55,10 +53,9 @@ function loop(timestamp) {
   if (!running) return;
 
   if (!lastTime) lastTime = timestamp;
-  const elapsed = timestamp - lastTime;
+  let elapsed = timestamp - lastTime;
 
   if (defibPause) {
-    // Pause active, ne rien faire
     lastTime = timestamp;
     requestAnimationFrame(loop);
     return;
@@ -76,8 +73,8 @@ function loop(timestamp) {
       if (compressions >= maxComp) {
         phase = "insufflations";
         insufflations = 0;
-        showPopup();
         insufflationTimer = 0;
+        showPopup();
       }
     }
   } else if (phase === "insufflations") {
@@ -93,10 +90,17 @@ function loop(timestamp) {
       hidePopup();
       cycles++;
       compressions = 0;
+      insufflations = 0; // remise à zéro pour le prochain cycle
       phase = "compressions";
       updateDisplay();
       lastTime = timestamp;
+      return; // On retourne ici pour éviter d'accumuler elapsed trop vite
     }
+
+    lastTime = timestamp;
+  }
+  else {
+    lastTime = timestamp;
   }
 
   requestAnimationFrame(loop);
@@ -119,7 +123,7 @@ defibBtn.onclick = () => {
   defibPause = true;
   setTimeout(() => {
     defibPause = false;
-    lastTime = performance.now(); // reset chrono après pause
+    lastTime = performance.now();
     requestAnimationFrame(loop);
   }, 5000);
 };
@@ -130,4 +134,4 @@ document.getElementById("formee").onclick = () => {
   alert("Le mode assisté est désactivé.");
 };
 
-reset(); // démarrage initial
+reset();
