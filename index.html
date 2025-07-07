@@ -1,0 +1,42 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Aide au Massage Cardiaque</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Assistance Massage Cardiaque</h1>
+
+  <div id="victime-selector">
+    <label>Victime :
+      <select id="typeVictime">
+        <option value="adulte">Adulte</option>
+        <option value="enfant">Enfant</option>
+        <option value="nourrisson">Nourrisson</option>
+        <option value="noye">Noyé</option>
+      </select>
+    </label>
+    <button id="formee">Je suis formé(e)</button>
+  </div>
+
+  <div id="zone-affichage">
+    <div class="case" id="compteurCompression">Comp : 0</div>
+    <div class="case" id="insufflations">Insufflations : 0</div>
+    <div class="case" id="cycles">Cycles : 0</div>
+  </div>
+
+  <div id="boutons-controle">
+    <button id="stop">STOP</button>
+    <button id="defib">Le défibrillateur parle</button>
+  </div>
+
+  <div id="popup" hidden>Soufflez maintenant !</div>
+
+  <!-- Audio -->
+  <audio id="bip" src="bip.mp3"></audio>
+  
+  <script src="script.js"></script>
+</body>
+</html>
