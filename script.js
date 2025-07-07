@@ -62,16 +62,21 @@ function start() {
     updateDisplay();
 
     if (compressions >= max) {
+      clearInterval(interval);
       showPopup();
+
+      // Simule les insufflations (2s)
       setTimeout(() => {
         hidePopup();
-        insufflations += 2;
         compressions = 0;
+        insufflations = 2;
         cycles++;
         updateDisplay();
-      }, 1000);
+
+        if (running) start(); // recommencer un nouveau cycle
+      }, 2000); // 2 secondes pour 2 insufflations
     }
-  }, 1000 / 110);
+  }, 545); // 110 compressions par minute ≈ 1 toutes les 545 ms
 }
 
 function showPopup() {
