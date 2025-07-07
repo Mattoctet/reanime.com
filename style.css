@@ -1,0 +1,52 @@
+/* style.css */
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background: #f2f2f2;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  color: #b30000;
+}
+
+#zone-affichage {
+  margin: 30px auto;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.case {
+  background: white;
+  padding: 20px;
+  border: 2px solid #444;
+  font-size: 24px;
+  width: 200px;
+  border-radius: 10px;
+}
+
+#popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: red;
+  color: white;
+  padding: 20px;
+  font-size: 24px;
+  border-radius: 10px;
+  z-index: 10;
+}
+
+#boutons-controle {
+  margin-top: 30px;
+}
+
+button {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 10px;
+}
