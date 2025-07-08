@@ -12,14 +12,13 @@ const insuff = document.getElementById("insufflations");
 const cycleDisplay = document.getElementById("cycles");
 const popup = document.getElementById("popup");
 const bip = document.getElementById("bip");
-const startBtn = document.getElementById("start");
 const stopBtn = document.getElementById("stop");
 const defibBtn = document.getElementById("defib");
 
 let lastTime = 0;
-const compressionInterval = 545; // ms entre compressions (110/min)
+const compressionInterval = 545; // 110 compressions par minute
 
-let phase = "compressions"; // compressions ou insufflations
+let phase = "compressions";
 let insufflationTimer = 0;
 
 function updateDisplay() {
@@ -64,6 +63,7 @@ function loop(timestamp) {
   if (phase === "compressions") {
     if (elapsed >= compressionInterval) {
       compressions++;
+      bip.currentTime = 0;
       bip.play();
       updateDisplay();
 
