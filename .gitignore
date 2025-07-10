@@ -1,1 +1,16 @@
 help_version.txt
+
+*.log
+*.tmp
+
+node_modules/
+dist/
+build/
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+
+.env
