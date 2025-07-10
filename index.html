@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
-  <title>Aide au Massage Cardiaque</title>
+  <title>Assistance Massage Cardiaque</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <h1>Assistance Massage Cardiaque</h1>
 
-  <div id="victime-selector">
-    <label>Victime :
+<body>
+
+  <!-- ÉTAPE 1 : QUESTIONS -->
+  <div id="accueil">
+    <h2>Êtes-vous formé(e) aux gestes de premiers secours ?</h2>
+    <button id="formee" id="civil" class="button-vert" style="top : 23%;">Civil formé(e)</button>
+    <button id="formee" id="medi" class="button-gris" style="top : 52%;">Corps Médical</button>
+    <button id="formee" id="secu" class="button-gris" style="top : 42%;">Secouriste</button>
+    <button id="nonFormee" class="button-rouge" style="top : 70%;">Civil non formé(e)</button>
+  </div>
+
+  <!-- ÉTAPE 2 : SIMULATION -->
+  <audio id="bip" src="son/bip.mp3" preload="auto"></audio>
+  <div id="simulation" hidden>
+    <h1>Assistance Massage Cardiaque</h1>
+
+    <label>Type de victime :
       <select id="typeVictime">
         <option value="adulte">Adulte</option>
         <option value="enfant">Enfant</option>
@@ -17,27 +31,25 @@
         <option value="noye">Noyé</option>
       </select>
     </label>
-    <button id="formee">Je suis formé(e)</button>
+
+    <div id="zone-affichage">
+      <div class="case" id="compteurCompression">Comp : 0</div>
+      <div class="case" id="insufflations">Insufflations : 0</div>
+      <div class="case" id="cycles">Cycles : 0</div>
+    </div>
+
+    <div id="insufflations" hidden>
+      Soufflez maintenant ! x2
+    </div>
+
+    <div id="boutons-controle">
+      <button id="stop" class="button-rouge">STOP</button>
+      <button id="defib" class="button-gris" style="top: 80%;">Défibrillateur</button>
+    </div>
   </div>
-
-  <div id="zone-affichage">
-    <div class="case" id="compteurCompression">Comp : 0</div>
-    <div class="case" id="insufflations">Insufflations : 0</div>
-    <div class="case" id="cycles">Cycles : 0</div>
-  </div>
-
-  <div id="boutons-controle">
-    <button id="stop">STOP</button>
-    <button id="defib">Le défibrillateur parle</button>
-  </div>
-
-  <div id="popup" hidden>Soufflez maintenant !</div>
-
-  <!-- Audio -->
-  <audio id="bip" src="son/bip.mp3" preload="auto"></audio>
 
   <script src="script.js"></script>
-  <button onclick="document.getElementById('bip').play()">Tester le bip</button>
-  <p>v.0.1.8-alpha</p>
+  <p>v.0.1.0-beta</p>
 </body>
+
 </html>

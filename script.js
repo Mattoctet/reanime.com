@@ -15,9 +15,11 @@ const bip = document.getElementById("bip");
 const stopBtn = document.getElementById("stop");
 const defibBtn = document.getElementById("defib");
 
-let lastTime = 0;
-const compressionInterval = 545; // 110 compressions par minute
+const accueilDiv = document.getElementById("accueil");
+const simulationDiv = document.getElementById("simulation");
 
+let lastTime = 0;
+const compressionInterval = 545;
 let phase = "compressions";
 let insufflationTimer = 0;
 
@@ -27,12 +29,12 @@ function updateDisplay() {
   cycleDisplay.textContent = `Cycles : ${cycles}`;
 }
 
-function showPopup() {
-  popup.hidden = false;
+function showInsufflations() {
+  insufflations.hidden = false;
 }
 
-function hidePopup() {
-  popup.hidden = true;
+function hideInsufflations() {
+  insufflations.hidden = true;
 }
 
 function reset() {
@@ -43,7 +45,7 @@ function reset() {
   running = true;
   defibPause = false;
   updateDisplay();
-  hidePopup();
+  hideInsufflations();
   lastTime = 0;
   requestAnimationFrame(loop);
 }
@@ -74,7 +76,7 @@ function loop(timestamp) {
         phase = "insufflations";
         insufflations = 0;
         insufflationTimer = 0;
-        showPopup();
+        showInsufflations();
       }
     }
   } else if (phase === "insufflations") {
@@ -88,7 +90,7 @@ function loop(timestamp) {
     if (insufflationTimer >= 8000) {
       insufflations = 2;
       updateDisplay();
-      hidePopup();
+      hideInsufflations();
       cycles++;
       compressions = 0;
       insufflations = 0;
@@ -107,7 +109,7 @@ select.onchange = () => {
 
 stopBtn.onclick = () => {
   running = false;
-  hidePopup();
+  hideInsufflations();
 };
 
 defibBtn.onclick = () => {
@@ -121,7 +123,11 @@ defibBtn.onclick = () => {
 
 document.getElementById("formee").onclick = () => {
   formé = true;
-  alert("Le mode assisté est désactivé.");
+  accueilDiv.hidden = true;
+  simulationDiv.hidden = false;
+  reset();
 };
 
-reset();
+document.getElementById("nonFormee").onclick = () => {
+  alert("Veuillez alerter les secours ou chercher une assistance.");
+};
