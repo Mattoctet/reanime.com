@@ -1,0 +1,18 @@
+Nom de l'application : Assistance Massage Cardiaque
+
+Version actuelle : 0.2.0-beta
+
+Historique des versions :
+--------------------------
+0.1.0-alpha   - Prototype initial avec le rythme des compressions
+0.1.1         - Ajout du son de bip et du popup pour insufflation
+0.2.0-beta    - Intégration du choix de la victime et du mode "formé(e)"
+               - Positionnement dynamique des boutons
+               - Boutons stylisés avec couleurs vert et rouge
+
+Prochaine version : 1.0.0
+- Améliorations UX
+- Compatibilité mobile
+- Préparation pour publication sur Play Store (via webview ou PWA)
+
+Format utilisé : Semantic Versioning (MAJOR.MINOR.PATCH)
