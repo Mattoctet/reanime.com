@@ -51,32 +51,48 @@ select {
   margin-top: 20px;
 }
 
+
 .button-vert {
   display: flex;
   justify-content: center;
+  align-items: center;
+
   position: absolute;
   left: 50%;
-  transform: translateX(-50%); 
+  transform: translateX(-50%);
+
+  width: 90vw;
+  max-height: 20vh;
+
   background-color: rgb(46, 204, 113);
   color: #fff;
   border: none;
-  padding: 10px 100px;
-  font-size: 150px;
+  padding: 1em;
+
+  font-size: clamp(1rem, 8vw, 10vh);
   border-radius: 50px;
   cursor: pointer;
 }
 
+
 .button-rouge {
   display: flex;
   justify-content: center;
+  align-items: center;
+
   position: absolute;
   left: 50%;
-  transform: translateX(-50%); 
+  transform: translateX(-50%);
+
+  width: 90vw;
+  max-height: 20vh;
+
   background-color: rgb(231, 76, 60);
   color: #fff;
   border: none;
-  padding: 10px 100px;
-  font-size: 150px;
+  padding: 1em;
+
+  font-size: clamp(1rem, 8vw, 10vh);
   border-radius: 50px;
   cursor: pointer;
 }
@@ -84,17 +100,25 @@ select {
 .button-gris {
   display: flex;
   justify-content: center;
+  align-items: center;
+
   position: absolute;
   left: 50%;
-  transform: translateX(-50%); 
+  transform: translateX(-50%);
+
+  width: 90vw;
+  max-height: 20vh;
+
   background-color: rgb(180, 180, 180);
   color: #fff;
   border: none;
-  padding: 10px 100px;
-  font-size: 150px;
+  padding: 1em;
+
+  font-size: clamp(1rem, 8vw, 10vh);
   border-radius: 50px;
   cursor: pointer;
 }
+
 
 #zone-affichage {
   display: block;
