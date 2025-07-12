@@ -5,19 +5,26 @@ let cycles = 0;
 let running = true;
 let defibPause = false;
 let formé = false;
+let roleForme = ""; // "civil", "medi", "secu"
 
 const select = document.getElementById("typeVictime");
 const compteur = document.getElementById("compteurCompression");
-const insuff = document.getElementById("insufflations");
+const insuff = document.getElementById("insufflationsCount");
+const insuffMsg = document.getElementById("insufflationsMsg");
 const cycleDisplay = document.getElementById("cycles");
-const popup = document.getElementById("popup");
 const bip = document.getElementById("bip");
+
 const stopBtn = document.getElementById("stop");
 const defibBtn = document.getElementById("defib");
 const reprendreBtn = document.getElementById("reprendre");
 
 const accueilDiv = document.getElementById("accueil");
 const simulationDiv = document.getElementById("simulation");
+
+const btnCivil = document.getElementById("civil");
+const btnMedi = document.getElementById("medi");
+const btnSecu = document.getElementById("secu");
+const btnNonFormee = document.getElementById("nonFormee");
 
 let lastTime = 0;
 const compressionInterval = 545;
@@ -33,11 +40,11 @@ function updateDisplay() {
 }
 
 function showInsufflations() {
-  insuff.hidden = false;
+  insuffMsg.hidden = false;
 }
 
 function hideInsufflations() {
-  insuff.hidden = true;
+  insuffMsg.hidden = true;
 }
 
 function reset() {
@@ -50,6 +57,7 @@ function reset() {
   updateDisplay();
   hideInsufflations();
   lastTime = 0;
+  console.log("Simulation réinitialisée");
   requestAnimationFrame(loop);
 }
 
@@ -68,6 +76,7 @@ function loop(timestamp) {
   if (phase === "compressions") {
     if (elapsed >= compressionInterval) {
       compressions++;
+      console.log(`Compression ${compressions}`);
       bip.currentTime = 0;
       bip.play();
       updateDisplay();
@@ -80,6 +89,7 @@ function loop(timestamp) {
         insufflations = 0;
         insufflationTimer = 0;
         showInsufflations();
+        console.log("Passage aux insufflations");
       }
     }
   } else if (phase === "insufflations") {
@@ -88,10 +98,12 @@ function loop(timestamp) {
 
     if (insufflationTimer >= 4000 && insufflations < 1) {
       insufflations = 1;
+      console.log("Première insufflation");
       updateDisplay();
     }
     if (insufflationTimer >= 8000) {
       insufflations = 2;
+      console.log("Deuxième insufflation");
       updateDisplay();
       hideInsufflations();
       cycles++;
@@ -99,6 +111,7 @@ function loop(timestamp) {
       insufflations = 0;
       phase = "compressions";
       updateDisplay();
+      console.log(`Cycle ${cycles} terminé`);
     }
   }
 
@@ -112,14 +125,14 @@ select.onchange = () => {
 };
 
 stopBtn.onclick = () => {
-  console.log("Bouton STOP cliqué");
+  console.log("Bouton STOP (button-rouge) cliqué");
   running = false;
   hideInsufflations();
   reprendreBtn.hidden = false;
 };
 
 reprendreBtn.onclick = () => {
-  console.log("Bouton REPRENDRE cliqué");
+  console.log("Bouton REPRENDRE (button-vert) cliqué");
   running = true;
   stopBtn.hidden = false;
   reprendreBtn.hidden = true;
@@ -127,24 +140,50 @@ reprendreBtn.onclick = () => {
 };
 
 defibBtn.onclick = () => {
-  console.log("Bouton DÉFIBRILLATEUR cliqué");
+  console.log("Bouton DÉFIBRILLATEUR (button-gris) cliqué");
   defibPause = true;
   setTimeout(() => {
     defibPause = false;
     lastTime = performance.now();
     requestAnimationFrame(loop);
+    console.log("Fin de la pause défibrillateur");
   }, 5000);
 };
 
-document.getElementById("formee").onclick = () => {
-  console.log("Bouton FORMÉ cliqué");
+// Gestion des boutons formés
+btnCivil.onclick = () => {
+  roleForme = "civil";
+  console.log("Bouton Civil (button-vert) cliqué valeur variable : " + roleForme);
   formé = true;
   accueilDiv.hidden = true;
   simulationDiv.hidden = false;
   reset();
 };
 
-document.getElementById("nonFormee").onclick = () => {
-  console.log("Bouton NON FORMÉ cliqué");
+btnMedi.onclick = () => {
+  roleForme = "medi";
+  console.log("Bouton Corps Médical (button-gris) cliqué valeur variable : " + roleForme);
+  formé = true;
+  accueilDiv.hidden = true;
+  simulationDiv.hidden = false;
+  reset();
+};
+
+btnSecu.onclick = () => {
+  roleForme = "secu";
+  console.log("Bouton Secouriste (button-gris) cliqué valeur variable : " + roleForme);
+  formé = true;
+  accueilDiv.hidden = true;
+  simulationDiv.hidden = false;
+  reset();
+};
+
+btnNonFormee.onclick = () => {
+  roleForme = "civilNonFormee";
+  formé = true;
+  console.log("Bouton NON FORMÉ (button-rouge) cliqué valeur variable : " + roleForme);
   alert("Veuillez alerter les secours ou chercher une assistance.");
+  accueilDiv.hidden = true;
+  simulationDiv.hidden = false;
+  reset();
 };
