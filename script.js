@@ -14,6 +14,7 @@ const popup = document.getElementById("popup");
 const bip = document.getElementById("bip");
 const stopBtn = document.getElementById("stop");
 const defibBtn = document.getElementById("defib");
+const reprendreBtn = document.getElementById("reprendre");
 
 const accueilDiv = document.getElementById("accueil");
 const simulationDiv = document.getElementById("simulation");
@@ -23,6 +24,8 @@ const compressionInterval = 545;
 let phase = "compressions";
 let insufflationTimer = 0;
 
+reprendreBtn.hidden = true;
+
 function updateDisplay() {
   compteur.textContent = `Comp : ${compressions}`;
   insuff.textContent = `Insufflations : ${insufflations}`;
@@ -30,11 +33,11 @@ function updateDisplay() {
 }
 
 function showInsufflations() {
-  insufflations.hidden = false;
+  insuff.hidden = false;
 }
 
 function hideInsufflations() {
-  insufflations.hidden = true;
+  insuff.hidden = true;
 }
 
 function reset() {
@@ -104,15 +107,27 @@ function loop(timestamp) {
 
 select.onchange = () => {
   type = select.value;
+  console.log(`Changement de type de victime : ${type}`);
   reset();
 };
 
 stopBtn.onclick = () => {
+  console.log("Bouton STOP cliqué");
   running = false;
   hideInsufflations();
+  reprendreBtn.hidden = false;
+};
+
+reprendreBtn.onclick = () => {
+  console.log("Bouton REPRENDRE cliqué");
+  running = true;
+  stopBtn.hidden = false;
+  reprendreBtn.hidden = true;
+  requestAnimationFrame(loop);
 };
 
 defibBtn.onclick = () => {
+  console.log("Bouton DÉFIBRILLATEUR cliqué");
   defibPause = true;
   setTimeout(() => {
     defibPause = false;
@@ -122,6 +137,7 @@ defibBtn.onclick = () => {
 };
 
 document.getElementById("formee").onclick = () => {
+  console.log("Bouton FORMÉ cliqué");
   formé = true;
   accueilDiv.hidden = true;
   simulationDiv.hidden = false;
@@ -129,5 +145,6 @@ document.getElementById("formee").onclick = () => {
 };
 
 document.getElementById("nonFormee").onclick = () => {
+  console.log("Bouton NON FORMÉ cliqué");
   alert("Veuillez alerter les secours ou chercher une assistance.");
 };

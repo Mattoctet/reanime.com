@@ -74,6 +74,10 @@ select {
   cursor: pointer;
 }
 
+.button-vert[hidden] {
+  display: none !important;
+}
+
 
 .button-rouge {
   display: flex;
@@ -126,8 +130,4 @@ select {
   flex-wrap: wrap;
   gap: 20px;
   margin-top: 20px;
-}
-
-.accueil {
-
 }
